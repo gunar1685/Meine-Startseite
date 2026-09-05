@@ -1,12 +1,12 @@
 {
-  "name": "Meine Startseite",
+  "name": "Meine Startseite – Desktop",
   "short_name": "Startseite",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#1c1b22",
+  "background_color": "#111218",
   "theme_color": "#1c1b22",
-  "description": "Persönliche Startseite mit Verknüpfungen, Ordnern und Offline-Unterstützung.",
+  "description": "Persönliche Desktop-Startseite mit frei sortierbaren Kacheln, bis zu 8 Abschnitten, Ordnern, Dark Mode und lokaler Speicherung.",
   "icons": [
     {
       "src": "icon-192.png",
