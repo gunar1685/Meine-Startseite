@@ -188,7 +188,7 @@ html[data-theme="dark"] body.has-bg::before{background:rgba(5,5,9,.58)}
 .grid.reorder-active .tile:not(.add-tile){cursor:grabbing}
 .tile.longpress-ready{transform:scale(1.03);transition:transform .12s ease}
 .tile,.tile .tile-link{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
-@media (hover:none),(pointer:coarse){.tile:not(.add-tile){touch-action:none}}
+@media (hover:none),(pointer:coarse){.tile:not(.add-tile){touch-action:pan-y}}
 .tile.touch-dragging{opacity:.28}
 .drag-ghost{position:fixed;z-index:1000;pointer-events:none;opacity:.92;transform:translate(-50%,-50%) scale(1.05);width:88px;text-align:center}
 .drag-ghost .more{display:none!important}
@@ -208,6 +208,13 @@ html[data-theme="dark"] body.has-bg::before{background:rgba(5,5,9,.58)}
 }
 body.dark .section-block + .section-block {
   border-top-color: rgba(255, 255, 255, .20);
+}
+
+
+/* v11 – kompaktere Abstände an den Abschnittstrennern */
+.section-block + .section-block {
+  margin-top: 16px;
+  padding-top: 16px;
 }
 
 </style>
@@ -432,8 +439,7 @@ function attachLongPress(tile,sectionId,index){
   let timer=null,startX=0,startY=0,pointerId=null;
   const clear=()=>{clearTimeout(timer);timer=null;tile.classList.remove('longpress-ready')};
 
-  // Android Chrome/Firefox normally show the native link context menu on a long press.
-  // Suppress it for sortable tiles so the gesture belongs to our drag handler instead.
+  // Native link menu weiterhin unterdrücken, ohne normales vertikales Scrollen zu blockieren.
   tile.addEventListener('contextmenu',e=>{
     if(e.target.closest('.more'))return;
     e.preventDefault();
@@ -444,22 +450,21 @@ function attachLongPress(tile,sectionId,index){
   tile.addEventListener('pointerdown',e=>{
     if(e.pointerType==='mouse'||e.button!==0||e.target.closest('.more'))return;
     pointerId=e.pointerId;startX=e.clientX;startY=e.clientY;
-    // Prevent the browser from taking over this touch for text/link selection.
-    e.preventDefault();
-    timer=setTimeout(()=>startTouchDrag(tile,sectionId,index,e.clientX,e.clientY,pointerId),420);
-  },{passive:false});
-  tile.addEventListener('pointermove',e=>{if(timer&&Math.hypot(e.clientX-startX,e.clientY-startY)>10)clear()});
-  tile.addEventListener('pointerup',e=>{
-    const wasWaiting=!!timer;
-    clear();
-    // Because pointerdown is prevented on touch, reproduce a normal short tap ourselves.
-    if(wasWaiting && e.pointerType!=='mouse' && Math.hypot(e.clientX-startX,e.clientY-startY)<=10 && Date.now()>=suppressClickUntil){
-      const link=tile.querySelector('a.tile-link');
-      const button=tile.querySelector('.tile-link[role="button"]');
-      if(link) window.location.href=link.href;
-      else if(button) button.click();
+    // Wichtig: kein preventDefault() hier. Dadurch kann Android über den Kacheln scrollen.
+    timer=setTimeout(()=>{
+      timer=null;
+      startTouchDrag(tile,sectionId,index,e.clientX,e.clientY,pointerId);
+    },480);
+  },{passive:true});
+
+  tile.addEventListener('pointermove',e=>{
+    if(timer && Math.hypot(e.clientX-startX,e.clientY-startY)>9){
+      // Sobald der Finger wischt, Long-Press abbrechen und dem Browser das Scrollen überlassen.
+      clear();
     }
-  });
+  },{passive:true});
+
+  tile.addEventListener('pointerup',clear);
   tile.addEventListener('pointercancel',clear);
 }
 function startTouchDrag(tile,sectionId,index,x,y,pointerId){
