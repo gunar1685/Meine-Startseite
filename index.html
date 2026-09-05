@@ -206,7 +206,7 @@ html[data-theme="dark"] body.has-bg::before{background:rgba(5,5,9,.58)}
   padding-top: 30px;
   border-top: 1px solid rgba(24, 24, 27, .14);
 }
-body.dark .section-block + .section-block {
+html[data-theme="dark"] .section-block + .section-block {
   border-top-color: rgba(255, 255, 255, .20);
 }
 
@@ -215,6 +215,83 @@ body.dark .section-block + .section-block {
 .section-block + .section-block {
   margin-top: 16px;
   padding-top: 16px;
+}
+
+
+/* v12 – Android Chrome + Firefox Nightly:
+   5 Spalten bleiben erhalten, Kachelgröße passt sich aber an die tatsächlich
+   verfügbare CSS-Viewport-Breite an. So entstehen auch in Firefox saubere Abstände. */
+@media (max-width: 899px) {
+  :root {
+    --mobile-side-pad: 12px;
+    --mobile-col-gap: 10px;
+    --mobile-icon-size: min(
+      64px,
+      calc((100vw - (2 * var(--mobile-side-pad)) - (4 * var(--mobile-col-gap))) / 5 - 4px)
+    );
+  }
+
+  main {
+    width: 100%;
+    max-width: 100%;
+    padding-left: var(--mobile-side-pad);
+    padding-right: var(--mobile-side-pad);
+    overflow-x: hidden;
+  }
+
+  .grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: var(--mobile-col-gap);
+    row-gap: 12px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .tile {
+    min-width: 0;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .icon {
+    width: var(--mobile-icon-size);
+    height: var(--mobile-icon-size);
+    border-radius: clamp(14px, calc(var(--mobile-icon-size) * .28), 18px);
+  }
+
+  .icon img {
+    width: min(38px, calc(var(--mobile-icon-size) * .60));
+    height: min(38px, calc(var(--mobile-icon-size) * .60));
+  }
+
+  .folder-icon {
+    font-size: min(36px, calc(var(--mobile-icon-size) * .56));
+  }
+
+  .more {
+    right: calc(50% - (var(--mobile-icon-size) / 2 + 11px));
+  }
+
+  .label {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+}
+
+/* Nur bei extrem schmalen effektiven Viewports auf 4 Spalten wechseln.
+   Normale aktuelle Smartphones bleiben bei 5 Spalten. */
+@media (max-width: 319px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  :root {
+    --mobile-icon-size: min(
+      64px,
+      calc((100vw - (2 * var(--mobile-side-pad)) - (3 * var(--mobile-col-gap))) / 4 - 4px)
+    );
+  }
 }
 
 </style>
