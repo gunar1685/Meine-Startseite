@@ -199,13 +199,24 @@ html[data-theme="dark"] body.has-bg::before{background:rgba(5,5,9,.58)}
 .section-limit{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.4}
 .empty-section{color:var(--muted);font-size:13px;padding:7px 4px 4px}
 
+
+/* v8 – dezente Abschnittstrenner, automatisch passend zu Light/Dark */
+.section-block + .section-block {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(24, 24, 27, .14);
+}
+body.dark .section-block + .section-block {
+  border-top-color: rgba(255, 255, 255, .20);
+}
+
 </style>
 </head>
 <body>
 <main>
   <div class="top">
     <div class="brand">
-      <div class="title">Meine Startseite</div>
+      <div class="title">Meine Startseite - Verknüpfungen</div>
     </div>
     <button class="settings" id="settingsBtn" aria-label="Einstellungen">⋮</button>
   </div>
@@ -221,7 +232,7 @@ html[data-theme="dark"] body.has-bg::before{background:rgba(5,5,9,.58)}
   <div class="breadcrumbs" id="breadcrumbs"></div>
 
   <div class="section-head">
-    <h2 id="pageHeading">Verknüpfungen</h2>
+    <h2 id="pageHeading" style="display:none"></h2>
     <button id="editHint" type="button">Gedrückt halten / ziehen</button>
   </div>
 
