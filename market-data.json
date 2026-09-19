@@ -1,0 +1,25 @@
+{
+  "updated": null,
+  "markets": {
+    "^GDAXI": {
+      "name": "DAX",
+      "metrics": null,
+      "error": "Noch nicht aktualisiert"
+    },
+    "^GSPC": {
+      "name": "S&P 500",
+      "metrics": null,
+      "error": "Noch nicht aktualisiert"
+    },
+    "^NDX": {
+      "name": "NASDAQ 100",
+      "metrics": null,
+      "error": "Noch nicht aktualisiert"
+    },
+    "^STOXX50E": {
+      "name": "EURO STOXX 50",
+      "metrics": null,
+      "error": "Noch nicht aktualisiert"
+    }
+  }
+}
