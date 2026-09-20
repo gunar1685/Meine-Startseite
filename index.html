@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1c1b22">
-<title>AppFolio Suite</title>
+<title>Gunar's Startseite</title>
 <style>
 :root{
   --bg:#f9f9fb;--fg:#15141a;--muted:#5b5b66;--surface:#ffffff;--surface2:#f0f0f4;
@@ -293,106 +293,47 @@ html[data-theme="dark"] .section-block + .section-block {
 }
 
 
-/* v13 – Modern Minimal UI + individual market ticker */
-:root{
-  --bg:#f5f6f8; --fg:#17181c; --muted:#747780; --surface:#ffffff;
-  --surface2:#f1f2f5; --line:#e4e6ea; --accent:#17181c; --accent2:#17181c;
-  --shadow:0 8px 28px rgba(20,24,32,.07); --search:#ffffffee;
+/* v13 – Firefox Nightly / Android: identische 5-Spalten-Geometrie */
+@media (max-width:899px){
+  :root{--mobile-side-pad:12px;--mobile-col-gap:10px}
+  main{width:100%;max-width:100%;padding-left:var(--mobile-side-pad);padding-right:var(--mobile-side-pad);overflow-x:hidden}
+  .grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:var(--mobile-col-gap);row-gap:18px;width:100%;min-width:0}
+  .tile{width:100%;min-width:0;max-width:100%;padding:0;display:flex;flex-direction:column;align-items:center;overflow:visible}
+  .tile-link{width:100%;min-width:0;max-width:100%;display:flex;flex-direction:column;align-items:center}
+  .icon{width:min(64px,calc(100% - 4px));height:auto;aspect-ratio:1/1;flex:0 0 auto;margin:0 auto}
+  .icon img{width:60%;height:60%;max-width:38px;max-height:38px}
+  .label{display:block;width:100%;min-width:0;max-width:100%;margin-top:8px;padding:0 1px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .more{top:-10px;right:max(-4px,calc(50% - 42px))}
+  .add-tile .icon{width:min(64px,calc(100% - 4px))}
 }
-html[data-theme="dark"]{
-  --bg:#0f1115; --fg:#f5f6f7; --muted:#9da2ad; --surface:#171a20;
-  --surface2:#20242c; --line:#2b3039; --accent:#ffffff; --accent2:#ffffff;
-  --shadow:0 10px 32px rgba(0,0,0,.28); --search:#171a20ee;
+@supports (-moz-appearance:none){
+ @media (max-width:899px){
+   .grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+   .tile,.tile-link,.label{min-width:0!important;max-width:100%!important}
+   .icon{width:min(64px,calc(100% - 8px))!important}
+ }
 }
-body{font-size:15px;letter-spacing:-.01em}
-main{width:min(94vw,1680px);padding-top:30px}
-.top{margin-bottom:24px}
-.title{font-size:22px;font-weight:720;letter-spacing:-.55px}
-.settings{width:40px;height:40px;font-size:21px;border:1px solid transparent}
-.settings:hover{background:var(--surface);border-color:var(--line)}
-.market-wrap{max-width:1100px;margin:0 auto 18px}
-.market-bar{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
-.market-bar::-webkit-scrollbar{display:none}
-.market-card{
-  min-width:150px;flex:0 0 auto;background:var(--surface);border:1px solid var(--line);
-  border-radius:14px;padding:11px 13px;box-shadow:0 4px 16px rgba(20,24,32,.045);
-  position:relative
-}
-.market-card .market-name{font-size:11.5px;color:var(--muted);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.market-card .market-row{display:flex;align-items:baseline;gap:7px;margin-top:5px}
-.market-card .market-value{font-size:16px;font-weight:760;letter-spacing:-.25px}
-.market-card .market-change{font-size:11.5px;font-weight:750}
-.market-card .market-change.pos{color:#16803c}.market-card .market-change.neg{color:#c23b3b}
-.market-card .market-edit{position:absolute;right:7px;top:5px;border:0;background:transparent;color:var(--muted);font-size:15px;cursor:pointer;opacity:.5}
-.market-card:hover .market-edit{opacity:1}
-.market-add{display:grid;place-items:center;min-width:54px;width:54px;padding:0;font-size:22px;color:var(--muted);cursor:pointer}
-.market-note{font-size:11px;color:var(--muted);margin:0 3px 7px}
-.search-wrap{max-width:900px;margin:0 auto 32px}
-.search{border-radius:16px;box-shadow:0 8px 30px rgba(20,24,32,.07);border-color:var(--line)}
-.search .g{font-size:16px}
-.search input{padding:16px 14px;font-size:16px}
-.sections{gap:20px}
-.section-block + .section-block{margin-top:10px;padding-top:22px;border-top:1px solid var(--line)}
-.section-title-row{margin-bottom:14px}
-.section-title-row h2{font-size:14px;font-weight:750;color:var(--muted);text-transform:none;letter-spacing:.01em}
-.grid{gap:18px 12px}
-.tile{padding:2px 1px 6px}
-.icon{width:60px;height:60px;border-radius:16px;box-shadow:0 5px 18px rgba(20,24,32,.08);border:1px solid var(--line)}
-.icon img{width:34px;height:34px}
-.label{font-size:12px;margin-top:7px}
-.add-tile .icon{border:1px dashed var(--line);font-size:24px}
-.tip{opacity:.75;margin-top:34px}
-.panel{width:min(90vw,360px);border-left:1px solid var(--line);box-shadow:-18px 0 50px rgba(0,0,0,.12)}
-dialog{border-color:var(--line);box-shadow:0 24px 70px rgba(0,0,0,.2)}
-.dialog input,.dialog select{background:var(--surface2)}
-.btn{border-radius:9px}
-.btn.primary{background:var(--fg);color:var(--bg)}
-@media(max-width:899px){
-  main{padding-top:18px}
-  .top{margin-bottom:18px}
-  .title{font-size:19px}
-  .market-wrap{margin-bottom:12px}
-  .market-card{min-width:132px;padding:10px 11px}
-  .market-card .market-value{font-size:15px}
-  .search-wrap{margin-bottom:24px}
-}
-
-
-/* v14 – Live market data / Twelve Data */
-.market-card{min-width:225px;padding:12px 13px 11px}
-.market-card .market-symbol{font-size:10.5px;color:var(--muted);margin-top:2px}
-.market-periods{display:grid;grid-template-columns:repeat(3,1fr);gap:7px 9px;margin-top:10px;padding-top:9px;border-top:1px solid var(--line)}
-.market-period{min-width:0}
-.market-period b{display:block;font-size:10px;color:var(--muted);font-weight:650}
-.market-period span{display:block;font-size:11.5px;font-weight:760;margin-top:2px}
-.market-period span.pos{color:#16803c}.market-period span.neg{color:#c23b3b}
-.market-status{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 3px 7px}
-.market-status .market-note{margin:0}
-.market-refresh{border:0;background:transparent;color:var(--muted);font-size:11px;cursor:pointer;padding:3px 5px}
-.market-refresh:hover{color:var(--fg)}
-.market-error{font-size:10.5px;color:#c23b3b;margin-top:7px;line-height:1.25}
-.market-loading{opacity:.55}
-@media(max-width:899px){
- .market-card{min-width:205px}
- .market-periods{gap:6px}
-}
+@media(max-width:359px){:root{--mobile-side-pad:10px;--mobile-col-gap:8px}}
 
 </style>
+
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#111218">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gunar's Startseite">
+<link rel="apple-touch-icon" href="./icon-192.png">
+
 </head>
 <body>
 <main>
   <div class="top">
     <div class="brand">
-      <div class="title">AppFolio Suite</div>
+      <div class="title">Gunar&#39;s Startseite</div>
     </div>
     <button class="settings" id="settingsBtn" aria-label="Einstellungen">⋮</button>
   </div>
-
-
-  <section class="market-wrap" aria-label="Individuelle Börsenkurse">
-    <div class="market-status"><div class="market-note" id="marketStatus">Börsenkurse · automatisch über GitHub Actions</div><button class="market-refresh" id="marketRefresh" type="button">↻ Aktualisieren</button></div>
-    <div class="market-bar" id="marketBar"></div>
-  </section>
 
   <form class="search-wrap" action="https://www.google.com/search" method="get">
     <div class="search">
@@ -420,7 +361,6 @@ dialog{border-color:var(--line);box-shadow:0 24px 70px rgba(0,0,0,.2)}
   <button id="addLinkMenu">＋ Verknüpfung hinzufügen</button>
   <button id="addFolderMenu">📁 Ordner hinzufügen</button>
   <button id="addSectionMenu">▤ Abschnitt hinzufügen</button>
-   <button id="marketMenu">⌁ Börsenkurse bearbeiten</button>
   <button id="bgBtn">🖼 Hintergrundbild wählen</button>
   <button id="clearBgBtn">✕ Hintergrund entfernen</button>
   <button id="themeBtn" class="theme-row"><span id="themeLabel">🌙 Dark Mode</span><span class="theme-state" id="themeState">Aus</span></button>
@@ -468,22 +408,6 @@ dialog{border-color:var(--line);box-shadow:0 24px 70px rgba(0,0,0,.2)}
   </div>
 </form>
 </dialog>
-
-
-<dialog id="marketDlg">
-<form method="dialog" class="dialog" id="marketForm">
-  <h3 id="marketTitle">Börsenindex</h3>
-  <label>Bezeichnung</label><input id="marketName" required placeholder="z. B. DAX">
-  <label>Yahoo-Finance-Symbol</label><input id="marketSymbol" required placeholder="z. B. ^GDAXI">
-  <div class="section-limit">Daten werden serverseitig per GitHub Actions aktualisiert. Beispiele: ^GDAXI (DAX), ^GSPC (S&P 500), ^NDX (NASDAQ 100), ^STOXX50E (Euro Stoxx 50).</div>
-  <div class="row">
-    <button class="btn" id="cancelMarketBtn" type="button">Abbrechen</button>
-    <button class="btn danger" id="deleteMarketBtn" type="button">Löschen</button>
-    <button class="btn primary" value="default">Speichern</button>
-  </div>
-</form>
-</dialog>
-
 
 <input id="bgFile" type="file" accept="image/*">
 <input id="importFile" type="file" accept="application/json">
@@ -750,75 +674,16 @@ $('exportBtn').onclick=()=>{const pack={version:2,data,bg:localStorage.getItem(B
 $('importBtn').onclick=()=>{$('importFile').click();openPanel(false)};
 $('importFile').onchange=async()=>{try{const p=JSON.parse(await $('importFile').files[0].text());if(p.data){localStorage.setItem(KEY,JSON.stringify(p.data));data=loadData()}if(p.bg)localStorage.setItem(BGKEY,p.bg);else if(p.bg===null)localStorage.removeItem(BGKEY);if(p.theme)localStorage.setItem(THEMEKEY,p.theme);applyTheme();applyBg();save()}catch{alert('Ungültige Sicherungsdatei.')} $('importFile').value=''};
 
-
-const MARKETKEY='neutral-market-github-v4';
-let marketEditIndex=-1, marketCache={};
-function loadMarkets(){
-  try{const x=JSON.parse(localStorage.getItem(MARKETKEY)||'null');if(Array.isArray(x))return x}catch{}
-  return [
-    {name:'DAX',symbol:'^GDAXI'},
-    {name:'S&P 500',symbol:'^GSPC'},
-    {name:'NASDAQ 100',symbol:'^NDX'},
-    {name:'EURO STOXX 50',symbol:'^STOXX50E'}
-  ];
-}
-let markets=loadMarkets();
-function saveMarkets(){localStorage.setItem(MARKETKEY,JSON.stringify(markets));renderMarkets();refreshMarkets()}
-function fmtNum(v){if(!Number.isFinite(Number(v)))return '—';return new Intl.NumberFormat('de-DE',{maximumFractionDigits:2}).format(Number(v))}
-function fmtPct(v){v=Number(v);if(!Number.isFinite(v))return '—';return `${v>0?'+':''}${v.toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})}%`}
-function pctClass(v){v=Number(v);return Number.isFinite(v)?(v>0?'pos':v<0?'neg':''):''}
-function renderMarkets(){
-  const bar=$('marketBar');if(!bar)return;bar.innerHTML='';
-  markets.forEach((m,i)=>{
-    const q=marketCache[m.symbol],metrics=q?.metrics,c=document.createElement('div');c.className='market-card'+(q?.loading?' market-loading':'');
-    const periods=metrics?[['1 Tag',metrics.d1],['1 Woche',metrics.w1],['1 Monat',metrics.m1],['6 Monate',metrics.m6],['12 Monate',metrics.m12],['YTD',metrics.ytd]]:[['1 Tag',NaN],['1 Woche',NaN],['1 Monat',NaN],['6 Monate',NaN],['12 Monate',NaN],['YTD',NaN]];
-    c.innerHTML=`<button class="market-edit" type="button" aria-label="Bearbeiten">⋯</button>
-      <div class="market-name">${esc(m.name)}</div><div class="market-symbol">${esc(m.symbol)}</div>
-      <div class="market-row"><span class="market-value">${metrics?fmtNum(metrics.latest):'—'}</span></div>
-      <div class="market-periods">${periods.map(([n,v])=>`<div class="market-period"><b>${n}</b><span class="${pctClass(v)}">${fmtPct(v)}</span></div>`).join('')}</div>
-      ${q?.error?`<div class="market-error">${esc(q.error)}</div>`:''}`;
-    c.querySelector('.market-edit').onclick=()=>openMarket(i);bar.appendChild(c);
-  });
-  const add=document.createElement('button');add.type='button';add.className='market-card market-add';add.textContent='＋';add.title='Index hinzufügen';add.onclick=()=>openMarket(-1);bar.appendChild(add);
-}
-async function refreshMarkets(){
-  $('marketStatus').textContent='Börsenkurse · werden geladen …';
-  try{
-    const r=await fetch(`market-data.json?t=${Date.now()}`,{cache:'no-store'});
-    if(!r.ok)throw new Error(`HTTP ${r.status}`);
-    const j=await r.json(), bySymbol=j.markets||{};
-    markets.forEach(m=>{
-      const x=bySymbol[m.symbol];
-      if(x?.metrics) marketCache[m.symbol]={metrics:x.metrics,error:x.error||'',updated:j.updated};
-      else marketCache[m.symbol]={metrics:null,error:'Für dieses Symbol liegen noch keine Daten vor.'};
-    });
-    const stamp=j.updated?new Date(j.updated):null;
-    $('marketStatus').textContent=stamp&&!isNaN(stamp)?`Börsenkurse · Stand ${stamp.toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}`:'Börsenkurse · aktualisiert';
-  }catch(e){
-    $('marketStatus').textContent='Börsenkurse · market-data.json nicht erreichbar';
-    markets.forEach(m=>{marketCache[m.symbol]={...(marketCache[m.symbol]||{}),error:'GitHub-Datendatei nicht erreichbar'}});
-  }
-  renderMarkets();
-}
-function openMarket(i=-1){
-  marketEditIndex=i;const m=i>=0?markets[i]:null;
-  $('marketTitle').textContent=i<0?'Börsenindex hinzufügen':'Börsenindex bearbeiten';
-  $('marketName').value=m?.name||'';$('marketSymbol').value=m?.symbol||'';
-  $('deleteMarketBtn').style.display=i<0?'none':'inline-block';$('marketDlg').showModal();
-}
-$('marketForm').addEventListener('submit',e=>{
-  e.preventDefault();const m={name:$('marketName').value.trim(),symbol:$('marketSymbol').value.trim()};
-  if(!m.name||!m.symbol)return;if(marketEditIndex<0)markets.push(m);else markets[marketEditIndex]=m;
-  saveMarkets();$('marketDlg').close();
-});
-$('cancelMarketBtn').onclick=()=>$('marketDlg').close();
-$('deleteMarketBtn').onclick=()=>{if(marketEditIndex>=0){markets.splice(marketEditIndex,1);localStorage.setItem(MARKETKEY,JSON.stringify(markets));renderMarkets();$('marketDlg').close()}};
-$('marketMenu').onclick=()=>{openPanel(false);openMarket(-1)};
-$('marketRefresh').onclick=refreshMarkets;
-renderMarkets();setTimeout(refreshMarkets,150);
-
-
 applyTheme();applyBg();save();
 </script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(console.error);
+  });
+}
+</script>
+
 </body>
 </html>
